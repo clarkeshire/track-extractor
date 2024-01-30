@@ -14,9 +14,15 @@
 
 import streamlit as st
 from streamlit.logger import get_logger
+import os
+
 
 LOGGER = get_logger(__name__)
 
+def file_selector(folder_path='.'):
+    filenames = os.listdir(folder_path)
+    selected_filename = st.selectbox('Select a file', filenames)
+    return os.path.join(folder_path, selected_filename)
 
 def run():
     st.set_page_config(
@@ -26,6 +32,8 @@ def run():
 
     st.write("# Track extractor")
 
+    filename = file_selector()
+    st.write('You selected `%s`' % filename)
 
 
 if __name__ == "__main__":
